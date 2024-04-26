@@ -8,39 +8,38 @@
 	<link rel="stylesheet" href="../static/css/apotheca.css" />
 	<script src="../static/js/htmx.min.js"></script>
 </head>
-<body class="bg-[#C7EBF0]">
-	<div class="grid grid-cols-5 grid-rows-5 p-4">
-		<div class="col-span-3 content-stretch p-4">
-			<img src="../static/images/apotheca_logo.png" style="height:64px;">
-		</div>
-		<div class="col-span-2 col-start-4 p-4">
-			<form class="max-w-md mx-auto">   
-				<label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-				<div class="relative">
-					<div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(28, 37, 65, 1);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
+<body class="bg-[#262F46]">
+	<div class="grid grid-cols-5 grid-rows-5">
+		<header class="grid col-span-5 m-4 p-4 bg-[#F0F4EE] rounded-lg">
+			<div class="flex flex-wrap items-center lg:gap-y-2 gap-4 w-full">
+				<a href="javascript:void(0)"><img src="../static/images/apotheca_logo.png" alt="logo" class="w-36" /></a>
+				<div class="flex gap-x-6 gap-y-4 ml-auto">
+					<div class="flex border-2 focus-within:border-gray-400 rounded-full px-6 py-3 overflow-hidden max-w-52 max-lg:hidden">
+						<input type="text" placeholder="Search something..." class="w-full text-sm bg-transparent outline-none pr-2" />
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(108, 108, 108);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
 					</div>
-					<input type="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required />
-					<button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-[#227681] hover:bg-[#113B40] focus:ring-4 focus:outline-none focus:ring-[#113B40] font-medium rounded-lg text-sm px-4 py-2">Search</button>
+					<div class="flex items-center space-x-8">
+						<button class="px-5 py-2 text-sm rounded-full text-white border-2 border-[#262F46] bg-[#262F46] hover:bg-[#293D70]">Sign In</button>
+					</div>
 				</div>
-			</form>
-		</div>
-		<div class="row-span-3 row-start-2 p-4">
+			</div>
+		</header>
+		<div class="row-span-3 row-start-2 p-4 ml-4 mr-4 bg-[#F0F4EE] rounded-lg">
 			<ul class="space-y-2 font-medium">
 				<li>
-					<a href="#" class="flex items-center p-2 text-[#1C2541] rounded-lg hover:bg-[#227681] hover:text-white group">
-						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-[#1C2541] hover:fill-white"><path fill="currentColor" d="M19.903 8.586a.997.997 0 0 0-.196-.293l-6-6a.997.997 0 0 0-.293-.196c-.03-.014-.062-.022-.094-.033a.991.991 0 0 0-.259-.051C13.04 2.011 13.021 2 13 2H6c-1.103 0-2 .897-2 2v16c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V9c0-.021-.011-.04-.013-.062a.952.952 0 0 0-.051-.259c-.01-.032-.019-.063-.033-.093zM16.586 8H14V5.414L16.586 8zM6 20V4h6v5a1 1 0 0 0 1 1h5l.002 10H6z"></path><path fill="currentColor" d="M8 12h8v2H8zm0 4h8v2H8zm0-8h2v2H8z"></path></svg>
+					<a href="#" class="flex items-center p-2 text-[#262F46] rounded-lg hover:bg-[#262F46] hover:text-white group">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-[#262F46] hover:fill-white"><path fill="currentColor" d="M19.903 8.586a.997.997 0 0 0-.196-.293l-6-6a.997.997 0 0 0-.293-.196c-.03-.014-.062-.022-.094-.033a.991.991 0 0 0-.259-.051C13.04 2.011 13.021 2 13 2H6c-1.103 0-2 .897-2 2v16c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V9c0-.021-.011-.04-.013-.062a.952.952 0 0 0-.051-.259c-.01-.032-.019-.063-.033-.093zM16.586 8H14V5.414L16.586 8zM6 20V4h6v5a1 1 0 0 0 1 1h5l.002 10H6z"></path><path fill="currentColor" d="M8 12h8v2H8zm0 4h8v2H8zm0-8h2v2H8z"></path></svg>
 						<span class="ms-3">My Documents</span>
 					</a>
 				</li>
 				<li>
-					<a href="#" class="flex items-center p-2 text-[#1C2541] rounded-lg hover:bg-[#227681] hover:text-white group">
+					<a href="#" class="flex items-center p-2 text-[#262F46] rounded-lg hover:bg-[#262F46] hover:text-white group">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(28, 37, 65, 1);"><path fill="currentColor" d="M19 3h-2.25a1 1 0 0 0-1-1h-7.5a1 1 0 0 0-1 1H5c-1.103 0-2 .897-2 2v15c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zm0 17H5V5h2v2h10V5h2v15z"></path></svg>
 						<span class="ms-3">My Tasks</span>
 					</a>
 				</li>
 				<li>
-					<a href="#" class="flex items-center p-2 text-[#1C2541] rounded-lg hover:bg-[#227681] hover:text-white group">
+					<a href="#" class="flex items-center p-2 text-[#262F46] rounded-lg hover:bg-[#262F46] hover:text-white group">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(28, 37, 65, 1);"><path fill="currentColor" d="M2 7v1l11 4 9-4V7L11 4z"></path><path fill="currentColor" d="M4 11v4.267c0 1.621 4.001 3.893 9 3.734 4-.126 6.586-1.972 7-3.467.024-.089.037-.178.037-.268V11L13 14l-5-1.667v3.213l-1-.364V12l-3-1z"></path></svg>
 						<span class="ms-3">My Training</span>
 					</a>
@@ -48,25 +47,28 @@
 			</ul>
 			<ul class="pt-4 mt-4 space-y-2 font-medium border-t border-[#154A51]">
 				<li>
-					<a href="#" class="flex items-center p-2 text-[#1C2541] rounded-lg hover:bg-[#227681] hover:text-white group">
+					<a href="#" class="flex items-center p-2 text-[#262F46] rounded-lg hover:bg-[#262F46] hover:text-white group">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(28, 37, 65, 1);"><path fill="currentColor" d="M6 22h12a2 2 0 0 0 2-2V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2zm7-18 5 5h-5V4zM8 14h3v-3h2v3h3v2h-3v3h-2v-3H8v-2z"></path></svg>
 						<span class="ms-3">Create Document</span>
 					</a>
 				</li>
 				<li>
-					<a href="#" class="flex items-center p-2 text-[#1C2541] rounded-lg hover:bg-[#227681] hover:text-white group">
+					<a href="#" class="flex items-center p-2 text-[#262F46] rounded-lg hover:bg-[#262F46] hover:text-white group">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(28, 37, 65, 1);"><path fill="currentColor" d="M19.045 7.401c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.378-.378-.88-.586-1.414-.586s-1.036.208-1.413.585L4 13.585V18h4.413L19.045 7.401zm-3-3 1.587 1.585-1.59 1.584-1.586-1.585 1.589-1.584zM6 16v-1.585l7.04-7.018 1.586 1.586L7.587 16H6zm-2 4h16v2H4z"></path></svg>
 						<span class="ms-3">Update Document</span>
 					</a>
 				</li>
 			</ul>
 		</div>
-		<div class="col-span-4 row-span-3 row-start-2 p-4">Content</div>
+		<div class="col-span-4 row-span-3 row-start-2 p-4 bg-[#F0F4EE] rounded-lg mr-4">
+			<p class="text-2xl text-[#F25F5C] font-bold pb-2">Documents</p>
+			<p class="text-[#262F46]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut varius neque. Proin interdum ultrices leo. Curabitur ligula mauris, condimentum quis erat eu, fringilla dapibus elit. Fusce sem dolor, vehicula eget finibus eu, imperdiet id sem. Nullam quis suscipit est. Suspendisse mauris purus, varius non orci non, rutrum venenatis felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Cras commodo et mi ac iaculis. Aenean vel tellus a elit suscipit efficitur in non quam. Praesent mi tellus, commodo tempor elit non, aliquam porta ex. Vestibulum non turpis nec turpis tempus porta quis a ex.</p>
+		</div>
 	</div>
-	<footer class="fixed bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
-		<span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">&copy; 2024 Apotheca. All Rights Reserved.
+	<footer class="fixed bottom-0 left-0 z-20 w-full p-4 bg-[#F0F4EE] border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
+		<span class="text-sm text-[#262F46] sm:text-center">&copy; 2024 Apotheca. All Rights Reserved.
 		</span>
-		<ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+		<ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-[#262F46] sm:mt-0">
 			<li>
 				<a href="#" class="hover:underline me-4 md:me-6">About</a>
 			</li>
