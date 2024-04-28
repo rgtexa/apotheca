@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"html/template"
 	"log/slog"
 	"net/http"
 	"os"
@@ -10,9 +9,8 @@ import (
 )
 
 type application struct {
-	logger        *slog.Logger
-	templateCache map[string]*template.Template
-	debugMode     bool
+	logger    *slog.Logger
+	debugMode bool
 }
 
 func main() {
@@ -25,9 +23,8 @@ func main() {
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 
 	app := &application{
-		logger:        logger,
-		templateCache: nil,
-		debugMode:     *dbg,
+		logger:    logger,
+		debugMode: *dbg,
 	}
 
 	srv := &http.Server{

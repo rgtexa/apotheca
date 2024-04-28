@@ -1,7 +1,25 @@
 package main
 
-import "net/http"
+import (
+	"bytes"
+	"html/template"
+	"log/slog"
+	"net/http"
+)
 
 func (app *application) homeHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello, World"))
+	tmp, err := template.ParseFiles("../../ui/html/base.html")
+	if err != nil {
+		app.logger.Error("failed to parse template", slog.String("error", err.Error()))
+	}
+	buf := new(bytes.Buffer)
+	err = tmp.ExecuteTemplate(buf, "base", nil)
+	if err != nil {
+		app.logger.Error("failed to execute template", slog.String("error", err.Error()))
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+
+	buf.WriteTo(w)
 }

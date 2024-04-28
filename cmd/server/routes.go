@@ -3,13 +3,21 @@ package main
 import (
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
+	"github.com/justinas/alice"
 )
 
 func (app *application) routes() http.Handler {
-	r := chi.NewRouter()
-	r.Use(middleware.Heartbeat("/ping"))
-	r.Get("/", app.homeHandler)
-	return r
+	mux := http.NewServeMux()
+
+	dynamic := alice.New(noSurf)
+
+	files := http.FileServer(http.Dir("../../ui/static"))
+	mux.Handle("/static", http.NotFoundHandler())
+	mux.Handle("/static/", http.StripPrefix("/static", files))
+
+	mux.Handle("GET /", dynamic.ThenFunc(app.homeHandler))
+
+	std := alice.New(commonHeaders)
+
+	return std.Then(mux)
 }
