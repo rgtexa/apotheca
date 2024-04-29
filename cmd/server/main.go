@@ -2,6 +2,8 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"html/template"
 	"log/slog"
 	"net/http"
 	"os"
@@ -9,8 +11,9 @@ import (
 )
 
 type application struct {
-	logger    *slog.Logger
-	debugMode bool
+	logger        *slog.Logger
+	templateCache map[string]*template.Template
+	debugMode     bool
 }
 
 func main() {
@@ -22,9 +25,16 @@ func main() {
 
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 
+	tc, err := newTemplateCache()
+	fmt.Println(tc)
+	if err != nil {
+		logger.Error("failed to initialize template cache", slog.String("error", err.Error()))
+	}
+
 	app := &application{
-		logger:    logger,
-		debugMode: *dbg,
+		logger:        logger,
+		templateCache: tc,
+		debugMode:     *dbg,
 	}
 
 	srv := &http.Server{
@@ -38,7 +48,7 @@ func main() {
 
 	logger.Info("starting server on", slog.String("addr", srv.Addr))
 
-	err := srv.ListenAndServe()
+	err = srv.ListenAndServe()
 	logger.Error("failed to start server", slog.String("error", err.Error()))
 	os.Exit(1)
 }

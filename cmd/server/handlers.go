@@ -1,26 +1,36 @@
 package main
 
 import (
-	"bytes"
-	"html/template"
-	"log/slog"
 	"net/http"
 )
 
 func (app *application) homeHandler(w http.ResponseWriter, r *http.Request) {
-	tmp, err := template.ParseFiles("./ui/html/base.html")
-	if err != nil {
-		app.logger.Error("failed to parse template", slog.String("error", err.Error()))
-	}
-	buf := new(bytes.Buffer)
-	err = tmp.ExecuteTemplate(buf, "base.html", nil)
-	if err != nil {
-		app.logger.Error("failed to execute template", slog.String("error", err.Error()))
-		return
-	}
+	data := app.newTemplateData(r)
+	w.Header().Set("Content-Type", "text/html")
 
-	w.Header().Set("content-type", "text/html")
-	w.WriteHeader(http.StatusOK)
+	app.render(w, r, http.StatusOK, "home.html", data)
+}
 
-	buf.WriteTo(w)
+func (app *application) aboutHandler(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, r, http.StatusOK, "about.html", data)
+}
+
+func (app *application) privacyHandler(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, r, http.StatusOK, "privacy.html", data)
+}
+
+func (app *application) licenseHandler(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, r, http.StatusOK, "license.html", data)
+}
+
+func (app *application) contactHandler(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+
+	app.render(w, r, http.StatusOK, "contact.html", data)
 }
