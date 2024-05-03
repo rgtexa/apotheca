@@ -16,6 +16,10 @@ func (app *application) routes() http.Handler {
 	mux.Handle("GET /static/", http.StripPrefix("/static", files))
 
 	mux.Handle("GET /", dynamic.ThenFunc(app.homeHandler))
+	mux.Handle("GET /about", dynamic.ThenFunc(app.aboutHandler))
+	mux.Handle("GET /license", dynamic.ThenFunc(app.licenseHandler))
+	mux.Handle("GET /privacy", dynamic.ThenFunc(app.privacyHandler))
+	mux.Handle("GET /contact", dynamic.ThenFunc(app.contactHandler))
 
 	std := alice.New(commonHeaders)
 

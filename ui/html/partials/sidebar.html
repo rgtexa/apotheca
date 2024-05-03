@@ -1,0 +1,39 @@
+{{ define "sidebar" }}
+
+<div class="row-span-3 row-start-2 col-span-2 p-4 ml-4 mr-4 bg-[#F0F4EE] rounded-lg">
+    <ul class="space-y-2 font-medium">
+        <li>
+            <a href="/documents" class="flex items-center p-2 text-[#262F46] rounded-lg hover:bg-[#262F46] hover:text-white group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-[#262F46] hover:fill-white"><path fill="currentColor" d="M19.903 8.586a.997.997 0 0 0-.196-.293l-6-6a.997.997 0 0 0-.293-.196c-.03-.014-.062-.022-.094-.033a.991.991 0 0 0-.259-.051C13.04 2.011 13.021 2 13 2H6c-1.103 0-2 .897-2 2v16c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V9c0-.021-.011-.04-.013-.062a.952.952 0 0 0-.051-.259c-.01-.032-.019-.063-.033-.093zM16.586 8H14V5.414L16.586 8zM6 20V4h6v5a1 1 0 0 0 1 1h5l.002 10H6z"></path><path fill="currentColor" d="M8 12h8v2H8zm0 4h8v2H8zm0-8h2v2H8z"></path></svg>
+                <span class="ms-3">My Documents</span>
+            </a>
+        </li>
+        <li>
+            <a href="/tasks" class="flex items-center p-2 text-[#262F46] rounded-lg hover:bg-[#262F46] hover:text-white group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(28, 37, 65, 1);"><path fill="currentColor" d="M19 3h-2.25a1 1 0 0 0-1-1h-7.5a1 1 0 0 0-1 1H5c-1.103 0-2 .897-2 2v15c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zm0 17H5V5h2v2h10V5h2v15z"></path></svg>
+                <span class="ms-3">My Tasks</span>
+            </a>
+        </li>
+        <li>
+            <a href="/training" class="flex items-center p-2 text-[#262F46] rounded-lg hover:bg-[#262F46] hover:text-white group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(28, 37, 65, 1);"><path fill="currentColor" d="M2 7v1l11 4 9-4V7L11 4z"></path><path fill="currentColor" d="M4 11v4.267c0 1.621 4.001 3.893 9 3.734 4-.126 6.586-1.972 7-3.467.024-.089.037-.178.037-.268V11L13 14l-5-1.667v3.213l-1-.364V12l-3-1z"></path></svg>
+                <span class="ms-3">My Training</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-[#154A51]">
+        <li>
+            <a href="/documents/create" class="flex items-center p-2 text-[#262F46] rounded-lg hover:bg-[#262F46] hover:text-white group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(28, 37, 65, 1);"><path fill="currentColor" d="M6 22h12a2 2 0 0 0 2-2V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2zm7-18 5 5h-5V4zM8 14h3v-3h2v3h3v2h-3v3h-2v-3H8v-2z"></path></svg>
+                <span class="ms-3">Create Document</span>
+            </a>
+        </li>
+        <li>
+            <a href="/documents/update" class="flex items-center p-2 text-[#262F46] rounded-lg hover:bg-[#262F46] hover:text-white group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(28, 37, 65, 1);"><path fill="currentColor" d="M19.045 7.401c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.378-.378-.88-.586-1.414-.586s-1.036.208-1.413.585L4 13.585V18h4.413L19.045 7.401zm-3-3 1.587 1.585-1.59 1.584-1.586-1.585 1.589-1.584zM6 16v-1.585l7.04-7.018 1.586 1.586L7.587 16H6zm-2 4h16v2H4z"></path></svg>
+                <span class="ms-3">Update Document</span>
+            </a>
+        </li>
+    </ul>
+</div>
+{{ end }}
