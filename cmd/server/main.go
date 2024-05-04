@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"html/template"
 	"log/slog"
 	"net/http"
@@ -26,7 +25,6 @@ func main() {
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 
 	tc, err := newTemplateCache()
-	fmt.Println(tc)
 	if err != nil {
 		logger.Error("failed to initialize template cache", slog.String("error", err.Error()))
 	}
