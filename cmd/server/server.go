@@ -1,6 +1,7 @@
 package server
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"html/template"
@@ -74,6 +75,10 @@ func RunServer() {
 	logger.Info("starting server on", slog.String("addr", srv.Addr))
 
 	if cfg.SSL {
+		tlsConfig := &tls.Config{
+			CurvePreferences: []tls.CurveID{tls.X25519, tls.CurveP256},
+		}
+		srv.TLSConfig = tlsConfig
 		err = srv.ListenAndServeTLS(cfg.Cert, cfg.Key)
 		logger.Error("failed to start SSL server", slog.String("error", err.Error()))
 		os.Exit(1)

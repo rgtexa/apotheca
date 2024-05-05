@@ -2,6 +2,7 @@ package server
 
 import (
 	"bytes"
+	"fmt"
 	"log/slog"
 	"net/http"
 
@@ -11,14 +12,14 @@ import (
 func (app *application) render(w http.ResponseWriter, r *http.Request, status int, page string, td *templateData) {
 	ts, ok := app.templateCache[page]
 	if !ok {
-		app.logger.Error("template does not exist", slog.String("page", page))
+		app.serverError(w, r, fmt.Errorf("the template %s could not be found", page))
 		return
 	}
 
 	buf := new(bytes.Buffer)
 	err := ts.ExecuteTemplate(buf, "base", td)
 	if err != nil {
-		app.logger.Error("failed to execute template", slog.String("error", err.Error()))
+		app.serverError(w, r, err)
 		return
 	}
 	w.Header().Set("Content-Type", "text/html")
@@ -34,4 +35,14 @@ func (app *application) newTemplateData(r *http.Request) *templateData {
 		IsAuthenticated: false,
 		CSRFToken:       nosurf.Token(r),
 	}
+}
+
+func (app *application) serverError(w http.ResponseWriter, r *http.Request, err error) {
+	var (
+		method = r.Method
+		uri    = r.URL.RequestURI()
+	)
+
+	app.logger.Error(err.Error(), slog.String("method", method), slog.String("uri", uri))
+	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 }

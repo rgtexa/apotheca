@@ -16,6 +16,6 @@ var versionCmd = &cobra.Command{
 	Long: `This command will print the version of Apotheca
 	currently installed.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Apotheca v0.02")
+		fmt.Println("Apotheca v0.03")
 	},
 }

@@ -21,7 +21,7 @@ func (app *application) routes() http.Handler {
 	mux.Handle("GET /privacy", dynamic.ThenFunc(app.privacyHandler))
 	mux.Handle("GET /contact", dynamic.ThenFunc(app.contactHandler))
 
-	std := alice.New(commonHeaders)
+	std := alice.New(app.recoverPanic, commonHeaders)
 
 	return std.Then(mux)
 }
