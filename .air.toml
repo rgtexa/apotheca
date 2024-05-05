@@ -1,11 +1,11 @@
-root = "/home/texa/dev/apotheca/cmd/server/"
+root = "/home/texa/dev/apotheca/cmd/"
 testdata_dir = "testdata"
 tmp_dir = "tmp"
 
 [build]
   args_bin = []
-  bin = "./tmp/main"
-  cmd = "go build -o ./tmp/main /home/texa/dev/apotheca/cmd/server/"
+  bin = "./tmp/apotheca"
+  cmd = "go build -o ./tmp/apotheca /home/texa/dev/apotheca/cmd/"
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor", "testdata"]
   exclude_file = []
