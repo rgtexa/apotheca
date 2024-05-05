@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-type configuration struct {
+type Configuration struct {
 	Port     string `json:"port"`
 	SSL      bool   `json:"ssl"`
 	Cert     string `json:"cert,omitempty"`
@@ -35,7 +35,7 @@ func RunServer() {
 
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 
-	cfg := &configuration{}
+	cfg := &Configuration{}
 
 	cfgReader, err := os.ReadFile("apotheca.json")
 	if err != nil {

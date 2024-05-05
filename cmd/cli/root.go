@@ -12,7 +12,7 @@ var rootCmd = &cobra.Command{
 	Short: "Apotheca is a web-based document repository management system",
 	Long: `A web-based document repository management system with
 			role-based permissions and training mangement.
-			Complete docs at apotheca.doc`,
+			Complete docs at https://apotheca.app`,
 	Run: func(cmd *cobra.Command, args []string) {
 
 	},
