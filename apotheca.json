@@ -3,6 +3,13 @@
     "ssl": false,
     "cert": "cert.pem",
     "key": "key.pem",
-    "database": "postgres",
+    "database": {
+        "dbprovider": "postgres",
+        "dbhost": "localhost",
+        "dbport": "5432",
+        "dbuser": "apotheca",
+        "dbpass": "ap0theca",
+        "dbname": "apotheca"
+    },
     "authprovider": "local"
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"fmt"
 	"html/template"
 	"log/slog"
 	"net/http"
@@ -11,11 +12,18 @@ import (
 )
 
 type configuration struct {
-	Port         string `json:"port"`
-	SSL          bool   `json:"ssl"`
-	Cert         string `json:"cert,omitempty"`
-	Key          string `json:"key,omitempty"`
-	Database     string `json:"database"`
+	Port     string `json:"port"`
+	SSL      bool   `json:"ssl"`
+	Cert     string `json:"cert,omitempty"`
+	Key      string `json:"key,omitempty"`
+	Database struct {
+		DBProvider string `json:"dbprovider"`
+		DBHost     string `json:"dbhost"`
+		DBPort     string `json:"dbport"`
+		DBUser     string `json:"dbuser"`
+		DBPass     string `json:"dbpass"`
+		DBName     string `json:"dbname"`
+	} `json:"database"`
 	AuthProvider string `json:"authprovider"`
 }
 
@@ -26,7 +34,7 @@ type application struct {
 }
 
 func main() {
-	//dsn := flag.String("dsn", "user:pass@/dbName?parseTime=true", "MySQL data source name")
+
 	dbg := flag.Bool("debug", false, "enable debug mode")
 
 	flag.Parse()
@@ -46,6 +54,9 @@ func main() {
 	}
 
 	logger.Info("Configuration", slog.Any("config", cfg))
+
+	dsn := fmt.Sprintf("%s://%s:%s@%s:%s/%s", cfg.Database.DBProvider, cfg.Database.DBUser, cfg.Database.DBPass, cfg.Database.DBHost, cfg.Database.DBPort, cfg.Database.DBName)
+	logger.Info("Data Source", slog.String("dsn", dsn))
 
 	tc, err := newTemplateCache()
 	if err != nil {
