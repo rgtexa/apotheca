@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
@@ -9,6 +10,9 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 type Configuration struct {
@@ -17,12 +21,14 @@ type Configuration struct {
 	Cert     string `json:"cert,omitempty"`
 	Key      string `json:"key,omitempty"`
 	Database struct {
-		DBProvider string `json:"dbprovider"`
-		DBHost     string `json:"dbhost"`
-		DBPort     string `json:"dbport"`
-		DBUser     string `json:"dbuser"`
-		DBPass     string `json:"dbpass"`
-		DBName     string `json:"dbname"`
+		DBProvider     string `json:"dbprovider"`
+		DBHost         string `json:"dbhost"`
+		DBPort         string `json:"dbport"`
+		DBUser         string `json:"dbuser"`
+		DBPass         string `json:"dbpass"`
+		DBName         string `json:"dbname"`
+		DBMaxOpenConns int    `json:"dbmaxopenconns"`
+		DBMaxIdleTime  string `json:"dbmaxidletime"`
 	} `json:"database"`
 	AuthProvider string `json:"authprovider"`
 }
@@ -52,6 +58,12 @@ func RunServer() {
 
 	dsn := fmt.Sprintf("%s://%s:%s@%s:%s/%s", cfg.Database.DBProvider, cfg.Database.DBUser, cfg.Database.DBPass, cfg.Database.DBHost, cfg.Database.DBPort, cfg.Database.DBName)
 	logger.Info("Data Source", slog.String("dsn", dsn))
+
+	db, err := openDB(dsn, cfg)
+	if err != nil {
+		logger.Error("Database", slog.String("error", err.Error()))
+	}
+	defer db.Close()
 
 	tc, err := newTemplateCache()
 	if err != nil {
@@ -86,4 +98,32 @@ func RunServer() {
 	err = srv.ListenAndServe()
 	logger.Error("failed to start server", slog.String("error", err.Error()))
 	os.Exit(1)
+}
+
+func openDB(dsn string, cfg *Configuration) (*pgxpool.Pool, error) {
+	mcit, err := time.ParseDuration(cfg.Database.DBMaxIdleTime)
+	if err != nil {
+		return nil, err
+	}
+	ccfg, err := pgx.ParseConfig(dsn)
+	if err != nil {
+		return nil, err
+	}
+	poolCfg := pgxpool.Config{
+		ConnConfig:      ccfg,
+		MaxConns:        int32(cfg.Database.DBMaxOpenConns),
+		MaxConnIdleTime: mcit,
+	}
+	conn, err := pgxpool.NewWithConfig(context.Background(), &poolCfg)
+	if err != nil {
+		return nil, err
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	err = conn.Ping(ctx)
+	if err != nil {
+		conn.Close()
+		return nil, err
+	}
+	return conn, nil
 }
