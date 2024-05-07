@@ -9,7 +9,9 @@
         "dbport": "5432",
         "dbuser": "apotheca",
         "dbpass": "ap0theca",
-        "dbname": "apotheca"
+        "dbname": "apotheca",
+        "dbmaxopenconns": 4,
+        "dbmaxidletime": "15m"
     },
     "authprovider": "local"
 }

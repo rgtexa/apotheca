@@ -11,7 +11,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -56,12 +55,28 @@ func RunServer() {
 
 	logger.Info("Configuration", slog.Any("config", cfg))
 
-	dsn := fmt.Sprintf("%s://%s:%s@%s:%s/%s", cfg.Database.DBProvider, cfg.Database.DBUser, cfg.Database.DBPass, cfg.Database.DBHost, cfg.Database.DBPort, cfg.Database.DBName)
+	mcit, err := time.ParseDuration(cfg.Database.DBMaxIdleTime)
+	if err != nil {
+		logger.Error("failed to parse database max idle time", slog.String("error", err.Error()))
+	}
+
+	dsn := fmt.Sprintf("%s://%s:%s@%s:%s/%s?pool_max_conns=%d&pool_max_conn_idle_time=%v",
+		cfg.Database.DBProvider,
+		cfg.Database.DBUser,
+		cfg.Database.DBPass,
+		cfg.Database.DBHost,
+		cfg.Database.DBPort,
+		cfg.Database.DBName,
+		cfg.Database.DBMaxOpenConns,
+		mcit,
+	)
 	logger.Info("Data Source", slog.String("dsn", dsn))
 
-	db, err := openDB(dsn, cfg)
+	db, err := openDB(dsn)
 	if err != nil {
 		logger.Error("Database", slog.String("error", err.Error()))
+		db.Close()
+		os.Exit(1)
 	}
 	defer db.Close()
 
@@ -100,21 +115,14 @@ func RunServer() {
 	os.Exit(1)
 }
 
-func openDB(dsn string, cfg *Configuration) (*pgxpool.Pool, error) {
-	mcit, err := time.ParseDuration(cfg.Database.DBMaxIdleTime)
+func openDB(dsn string) (*pgxpool.Pool, error) {
+
+	poolCfg, err := pgxpool.ParseConfig(dsn)
 	if err != nil {
 		return nil, err
 	}
-	ccfg, err := pgx.ParseConfig(dsn)
-	if err != nil {
-		return nil, err
-	}
-	poolCfg := pgxpool.Config{
-		ConnConfig:      ccfg,
-		MaxConns:        int32(cfg.Database.DBMaxOpenConns),
-		MaxConnIdleTime: mcit,
-	}
-	conn, err := pgxpool.NewWithConfig(context.Background(), &poolCfg)
+
+	conn, err := pgxpool.NewWithConfig(context.Background(), poolCfg)
 	if err != nil {
 		return nil, err
 	}
