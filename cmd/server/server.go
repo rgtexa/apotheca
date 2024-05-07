@@ -35,29 +35,51 @@ type Configuration struct {
 type application struct {
 	logger        *slog.Logger
 	templateCache map[string]*template.Template
+	debug         bool
 }
 
-func RunServer() {
+func RunServer(runFlags []string) {
 
-	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	logLevel := new(slog.LevelVar)
+	logOptions := slog.HandlerOptions{
+		Level: logLevel,
+	}
+	logger := slog.NewJSONHandler(os.Stdout, &logOptions)
+	slog.SetDefault(slog.New(logger))
+
+	tc, err := newTemplateCache()
+	if err != nil {
+		slog.Error("failed to initialize template cache", slog.String("error", err.Error()))
+	}
+
+	app := &application{
+		logger:        &slog.Logger{},
+		templateCache: tc,
+	}
+
+	if len(runFlags) > 0 {
+		app.debug = true
+		logLevel.Set(slog.LevelDebug)
+		slog.Debug("Run Flags", slog.String("Flags", runFlags[0]))
+	}
 
 	cfg := &Configuration{}
 
 	cfgReader, err := os.ReadFile("apotheca.json")
 	if err != nil {
-		logger.Error("failed to read configuration json", slog.String("error", err.Error()))
+		slog.Error("failed to read configuration json", slog.String("error", err.Error()))
 	}
 
 	err = json.Unmarshal(cfgReader, cfg)
 	if err != nil {
-		logger.Error("failed to unmarshal configuration json", slog.String("error", err.Error()))
+		slog.Error("failed to unmarshal configuration json", slog.String("error", err.Error()))
 	}
 
-	logger.Info("Configuration", slog.Any("config", cfg))
+	slog.Info("Configuration", slog.Any("config", cfg))
 
 	mcit, err := time.ParseDuration(cfg.Database.DBMaxIdleTime)
 	if err != nil {
-		logger.Error("failed to parse database max idle time", slog.String("error", err.Error()))
+		slog.Error("failed to parse database max idle time", slog.String("error", err.Error()))
 	}
 
 	dsn := fmt.Sprintf("%s://%s:%s@%s:%s/%s?pool_max_conns=%d&pool_max_conn_idle_time=%v",
@@ -70,36 +92,26 @@ func RunServer() {
 		cfg.Database.DBMaxOpenConns,
 		mcit,
 	)
-	logger.Info("Data Source", slog.String("dsn", dsn))
+	slog.Debug("Data Source", slog.String("dsn", dsn))
 
 	db, err := openDB(dsn)
 	if err != nil {
-		logger.Error("Database", slog.String("error", err.Error()))
+		slog.Error("Database", slog.String("error", err.Error()))
 		db.Close()
 		os.Exit(1)
 	}
 	defer db.Close()
 
-	tc, err := newTemplateCache()
-	if err != nil {
-		logger.Error("failed to initialize template cache", slog.String("error", err.Error()))
-	}
-
-	app := &application{
-		logger:        logger,
-		templateCache: tc,
-	}
-
 	srv := &http.Server{
 		Addr:         cfg.Port,
-		ErrorLog:     slog.NewLogLogger(logger.Handler(), slog.LevelError),
+		ErrorLog:     slog.NewLogLogger(slog.Default().Handler(), slog.LevelError),
 		Handler:      app.routes(),
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
 
-	logger.Info("starting server on", slog.String("addr", srv.Addr))
+	slog.Info("starting server on", slog.String("addr", srv.Addr))
 
 	if cfg.SSL {
 		tlsConfig := &tls.Config{
@@ -107,11 +119,11 @@ func RunServer() {
 		}
 		srv.TLSConfig = tlsConfig
 		err = srv.ListenAndServeTLS(cfg.Cert, cfg.Key)
-		logger.Error("failed to start SSL server", slog.String("error", err.Error()))
+		slog.Error("failed to start SSL server", slog.String("error", err.Error()))
 		os.Exit(1)
 	}
 	err = srv.ListenAndServe()
-	logger.Error("failed to start server", slog.String("error", err.Error()))
+	slog.Error("failed to start server", slog.String("error", err.Error()))
 	os.Exit(1)
 }
 
