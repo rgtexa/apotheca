@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS documents (
-    id bigserial PRIMARY KEY,  
-    created_at timestamp(0) with time zone NOT NULL DEFAULT NOW(),
-    updated_at timestamp(0) with time zone NOT NULL DEFAULT NOW(),
-    title text NOT NULL,
-    subject text NOT NULL,
-    summary text NOT NULL,
-    filename text NOT NULL,
-    majorver smallint NOT NULL DEFAULT 0,
-    minorver smallint NOT NULL DEFAULT 0,
-    author bigint NOT NULL REFERENCES users (id)
+    id BIGSERIAL PRIMARY KEY,  
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    title TEXT NOT NULL,
+    subject TEXT NOT NULL,
+    summary TEXT NOT NULL,
+    filename TEXT NOT NULL,
+    majorver SMALLINT NOT NULL DEFAULT 0,
+    minorver SMALLINT NOT NULL DEFAULT 0,
+    author BIGINT NOT NULL REFERENCES users (id)
 );

@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS tokens (
-    hash bytea PRIMARY KEY,
-    user_id bigint NOT NULL REFERENCES users ON DELETE CASCADE,
-    expiry timestamp(0) with time zone NOT NULL,
-    scope text NOT NULL
+    hash BYTEA PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users ON DELETE CASCADE,
+    expiry TIMESTAMPTZ NOT NULL,
+    scope TEXT NOT NULL
 );
