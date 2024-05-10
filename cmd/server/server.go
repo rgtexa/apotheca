@@ -11,6 +11,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/alexedwards/scs/pgxstore"
+	"github.com/alexedwards/scs/v2"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -33,9 +35,10 @@ type Configuration struct {
 }
 
 type application struct {
-	logger        *slog.Logger
-	templateCache map[string]*template.Template
-	debug         bool
+	logger         *slog.Logger
+	templateCache  map[string]*template.Template
+	sessionManager *scs.SessionManager
+	debug          bool
 }
 
 func RunServer(runFlags []string) {
@@ -52,9 +55,14 @@ func RunServer(runFlags []string) {
 		slog.Error("failed to initialize template cache", slog.String("error", err.Error()))
 	}
 
+	sessionManager := scs.New()
+	sessionManager.Lifetime = 12 * time.Hour
+	sessionManager.IdleTimeout = 20 * time.Minute
+
 	app := &application{
-		logger:        &slog.Logger{},
-		templateCache: tc,
+		logger:         &slog.Logger{},
+		templateCache:  tc,
+		sessionManager: sessionManager,
 	}
 
 	if len(runFlags) > 0 {
@@ -101,6 +109,8 @@ func RunServer(runFlags []string) {
 		os.Exit(1)
 	}
 	defer db.Close()
+
+	sessionManager.Store = pgxstore.New(db)
 
 	srv := &http.Server{
 		Addr:         cfg.Port,

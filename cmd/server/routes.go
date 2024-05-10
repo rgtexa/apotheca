@@ -9,7 +9,7 @@ import (
 func (app *application) routes() http.Handler {
 	mux := http.NewServeMux()
 
-	dynamic := alice.New(noSurf)
+	dynamic := alice.New(noSurf, app.sessionManager.LoadAndSave)
 
 	files := http.FileServer(http.Dir("./ui/static"))
 	mux.Handle("GET /static", http.NotFoundHandler())
