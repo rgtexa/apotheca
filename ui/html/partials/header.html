@@ -4,11 +4,11 @@
         <a href="/"><img src="../static/images/apotheca_logo.png" alt="logo" class="h-[64px]" /></a>
         <div class="flex gap-x-6 gap-y-4 ml-auto">
             <div class="flex border-2 focus-within:border-[#262F46] rounded-full px-6 py-3 overflow-hidden max-w-52 max-lg:hidden">
-                <input type="text" placeholder="Search something..." class="w-full text-sm bg-transparent outline-none pr-2" />
+                <input type="text" name="search" id="search" placeholder="Search..." class="w-full text-sm bg-transparent outline-none pr-2" />
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(28, 37, 65);"><path d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"></path></svg>
             </div>
             <div class="flex items-center space-x-8">
-                <button class="px-5 py-2 text-sm rounded-full text-white border-2 border-[#262F46] bg-[#262F46] hover:bg-[#293D70]">Sign In</button>
+                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="px-5 py-2 text-sm rounded-full text-white border-2 border-[#262F46] bg-[#262F46] hover:bg-[#293D70]">Sign In</button>
             </div>
         </div>
     </div>
