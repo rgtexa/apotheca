@@ -129,7 +129,7 @@ func RunServer(runFlags []string) {
 		}
 		srv.TLSConfig = tlsConfig
 		err = srv.ListenAndServeTLS(cfg.Cert, cfg.Key)
-		slog.Error("failed to start SSL server", slog.String("error", err.Error()))
+		slog.Error("failed to start TLS server", slog.String("error", err.Error()))
 		os.Exit(1)
 	}
 	err = srv.ListenAndServe()
