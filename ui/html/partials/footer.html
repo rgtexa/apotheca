@@ -1,23 +1,15 @@
 {{ define "footer" }}
+<footer class="w-full m-0 relative bg-gray-900 text-gray-300 py-6 px-16 font-sans tracking-wide">
+    <div class="flex justify-between items-center max-lg:flex-col text-center flex-wrap gap-4">
+      <p class="text-[15px] leading-loose">&copy; 2024<a href='/' target='_blank'
+        class="hover:underline mx-1">Apotheca</a> All Rights Reserved.</p>
 
-<footer class="bg-white rounded-lg shadow mt-4 dark:bg-gray-800">
-    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-      <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="/" class="hover:underline">Apotheca</a>. All Rights Reserved.
-    </span>
-    <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-        <li>
-            <a href="/about" class="hover:underline me-4 md:me-6">About</a>
-        </li>
-        <li>
-            <a href="/privacy" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-        </li>
-        <li>
-            <a href="/license" class="hover:underline me-4 md:me-6">Licensing</a>
-        </li>
-        <li>
-            <a href="/contact" class="hover:underline">Contact</a>
-        </li>
-    </ul>
+      <ul class="flex space-x-6 gap-y-2 max-lg:justify-center flex-wrap">
+        <li><a href="/about" class="text-[15px] hover:text-white">About</a></li>
+        <li><a href="/privacy" class="text-[15px] hover:text-white">Privacy Policy</a></li>
+        <li><a href="/license" class="text-[15px] hover:text-white">License</a></li>
+        <li><a href="/contact" class="text-[15px] hover:text-white">Contact</a></li>
+      </ul>
     </div>
-</footer>
+  </footer>
 {{ end }}

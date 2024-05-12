@@ -6,24 +6,18 @@
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Apotheca</title>
-	<link rel="stylesheet" href="../static/css/apotheca.css" />
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
-	<script src="../static/js/htmx.min.js"></script>
+	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" /> -->
+	<link rel="stylesheet" href="/static/css/apotheca.css" />
+	<!-- <script src="../static/js/htmx.min.js"></script> -->
 </head>
-<body class="bg-[#262F46]">
+<body class="">
 	<div class="container mx-auto mt-4">
 		{{ template "header" . }}
 		{{ template "sidebar" . }}
-		<div class="p-4 sm:ml-64">
-			<div class="mt-14">
-				<div class="flex p-4 h-full mb-4 rounded-lg bg-gray-50 dark:bg-gray-800">
-					{{ template "main" . }}
-				</div>
-			</div>
-			{{ template "footer" . }}
-		</div>
-
+		{{ template "main" . }}
+		
 	</div>
+	{{ template "footer" . }}
 	<!-- Main modal -->
 	<div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
 		<div class="relative p-4 w-full max-w-md max-h-full">
@@ -72,7 +66,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script> -->
 </body>
 </html>
 {{ end }}
