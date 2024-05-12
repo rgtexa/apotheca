@@ -110,7 +110,7 @@ func RunServer(runFlags []string) {
 	}
 	defer db.Close()
 
-	sessionManager.Store = pgxstore.New(db)
+	app.sessionManager.Store = pgxstore.New(db)
 
 	srv := &http.Server{
 		Addr:         cfg.Port,
