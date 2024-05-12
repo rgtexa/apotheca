@@ -15,6 +15,7 @@ func (app *application) render(w http.ResponseWriter, r *http.Request, status in
 		app.serverError(w, r, fmt.Errorf("the template %s could not be found", page))
 		return
 	}
+	td.ReturnURI = r.URL.RequestURI()
 
 	buf := new(bytes.Buffer)
 	err := ts.ExecuteTemplate(buf, "base", td)
@@ -34,6 +35,7 @@ func (app *application) newTemplateData(r *http.Request) *templateData {
 		Flash:           "",
 		IsAuthenticated: false,
 		CSRFToken:       nosurf.Token(r),
+		ReturnURI:       "",
 	}
 }
 
