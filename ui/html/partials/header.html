@@ -1,5 +1,5 @@
 {{ define "header" }}
-<header class='flex w-full fixed top-0 left-0 shadow-sm py-2 px-4 sm:px-10 bg-fall-green-100 font-[sans-serif] min-h-[70px] tracking-wide z-50'>
+<header class='flex w-full fixed top-0 left-0 shadow-sm py-2 px-4 sm:px-10 bg-ebony-clay-300 font-[sans-serif] min-h-[70px] tracking-wide z-50'>
   <div class='flex flex-wrap items-center justify-between lg:gap-y-4 gap-y-6 gap-x-4 w-full'>
     <a href="javascript:void(0)"><img src="/static/images/apotheca_logo.png" alt="logo" class='w-36' />
     </a>
@@ -32,12 +32,13 @@
 
     <div class='flex items-center max-sm:ml-auto space-x-6'>
       <ul>
-        <li class="relative px-1 after:absolute after:bg-black after:w-full after:h-[2px] after:block after:top-8 after:left-0 after:transition-all after:duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" class="mr-4"><path d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path></svg>
+        <li class="relative px-1">
+          {{ if .IsAuthenticated }}
+          <svg id="userprofile" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" class="mr-4 cursor-pointer"><path d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path></svg>
           <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" class="cursor-pointer hover:fill-black" viewBox="0 0 512 512">
             <path d="M437.02 74.981C388.667 26.629 324.38 0 256 0S123.333 26.629 74.98 74.981C26.629 123.333 0 187.62 0 256s26.629 132.667 74.98 181.019C123.333 485.371 187.62 512 256 512s132.667-26.629 181.02-74.981C485.371 388.667 512 324.38 512 256s-26.629-132.667-74.98-181.019zM256 482c-66.869 0-127.037-29.202-168.452-75.511C113.223 338.422 178.948 290 256 290c-49.706 0-90-40.294-90-90s40.294-90 90-90 90 40.294 90 90-40.294 90-90 90c77.052 0 142.777 48.422 168.452 116.489C383.037 452.798 322.869 482 256 482z" data-original="#000000" />
           </svg> -->
-          <!-- <div class="bg-white z-20 shadow-md py-6 px-6 sm:min-w-[320px] max-sm:min-w-[250px] absolute right-0 top-10">
+          <div id="usermenu" class="hidden bg-white z-20 shadow-md py-6 px-6 sm:min-w-[320px] max-sm:min-w-[250px] absolute top-0 left-0">
             <h6 class="font-semibold">Welcome</h6>
             <p class="text-sm text-gray-500 mt-1">To access account and manage orders</p>
             <button type='button'
@@ -57,7 +58,10 @@
               <li><a href='javascript:void(0)' class="text-sm text-gray-500 hover:text-black">Contact Us</a></li>
               <li><a href='javascript:void(0)' class="text-sm text-gray-500 hover:text-black">Saved Addresses</a></li>
             </ul>
-          </div> -->
+          </div>
+          {{ else }}
+            <button type="button" id="signin" class="px-6 py-2.5 rounded bg-ebony-clay-700 text-ebony-clay-100 hover:text-ebony-clay-50 hover:bg-ebony-clay-900" data-micromodal-trigger="authentication-modal">Sign In</button>
+          {{ end }}
         </li>
       </ul>
 
